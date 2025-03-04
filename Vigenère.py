@@ -33,11 +33,27 @@ def index_to_letter(index,alphabet:str):
 
 def vigenere_index(key_letter, plaintext_letter, alphabet):
     return (letter_to_index(key_letter, alphabet) + letter_to_index(plaintext_letter, alphabet)) % len(alphabet)
-key = "cybertruck"
+
+def encrypt_vigenere(key, plaintext, alphabet):
+    cypher_text = ""
+    key_len = len(key)
+    counter = 0
+    for c in plaintext:
+        if c == " ":
+            cypher_text += " "
+        elif c.upper() in alphabet:
+            cypher_text += index_to_letter(vigenere_index(key[counter % key_len], c, alphabet), alphabet)
+            counter += 1
+    return cypher_text
+
+key = "bluesmurf"
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-message = "Hello World"
+message = "Hello World, I am here"
 
 # vigenere_square(alphabet)
+"""
 print(letter_to_index("a", alphabet))
 print(index_to_letter(20, alphabet))
 print(vigenere_index(key[0], message[0], alphabet))
+"""
+print(encrypt_vigenere(key,message,alphabet))
